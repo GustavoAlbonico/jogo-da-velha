@@ -133,11 +133,11 @@ h1{
     width: 20px;
 }
 
-.icon-x{
+button .icon-x, .icon-players .icon-x{
     fill: var(--color-light-blue);
 }
 
-.icon-o{
+button .icon-o, .icon-players .icon-o{
     fill: var(--color-light-orange);
 }
 
@@ -164,10 +164,10 @@ h1{
 
 @keyframes scale-in{
     from{
-        transform: scale(2) rotate(180deg);
+        transform: scale(2);
     }
 
     to{
-        transform: scale(1) rotate(360deg);
+        transform: scale(1);
     }
 }
