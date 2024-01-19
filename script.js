@@ -12,6 +12,10 @@ var gameMirror = [Array(3).fill(null),Array(3).fill(null),Array(3).fill(null)];
 
 var turn = "x";
 
+var pointsX = 0;
+var pointsO = 0;
+var pointsDraw = 0;
+
 function play(element){
 
     let svg = element.querySelector("svg");
@@ -53,13 +57,28 @@ function clearGame(){
 
     let buttons = document.querySelectorAll('.button-area')
 
+
+
     buttons.forEach(button => {
-        button.innerHTML = "";
+        let svg = button.querySelector('svg');
+        button.setAttribute('disabled','true');
+      
+        if(svg){
+        svg.style.animation = 'scale-out 400ms cubic-bezier(0.165, 0.84, 0.44, 1) forwards'
+        }      
+
+        setTimeout(() => {
+            button.innerHTML = "";
+            button.removeAttribute('disabled');
+           
+        }, 400);
     });
 
     if(turn === "o"){
         setTurn();
     }
+
+    gameMirror = [Array(3).fill(null),Array(3).fill(null),Array(3).fill(null)];
 }
 
 function setMirror(position){
@@ -69,9 +88,9 @@ function setMirror(position){
     gameMirror[position[0]][position[1]] = turn;
 
     let winner = checkWinner();
+
     if(winner !== false){
         setPoints(winner);
-        cleanMatriz();
         clearGame();
     }
     
@@ -120,20 +139,21 @@ function checkWinner(){
     
 }
 
-function cleanMatriz(){
-    gameMirror = [Array(3).fill(null),Array(3).fill(null),Array(3).fill(null)];
-}
-
 function setPoints(winner){
 
     switch(winner){
-        case "x":
-
+        case"x":
+            pointsX++;
+            document.getElementById('pointsX').innerHTML = pointsX;
         break;
         case"o":
+            pointsO++;
+            document.getElementById('pointsO').innerHTML = pointsO;
 
         break;
         case"draw":
+            pointsDraw++;
+            document.getElementById('pointsDraw').innerHTML = pointsDraw;
 
         break;
     }
